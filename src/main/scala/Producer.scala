@@ -9,7 +9,7 @@ object Producer extends App {
   properties.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer")
   properties.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer")
 
-  val topic = "boar bear beer"
+  val topic = "BoarBearBeer"
 
   val producer = new KafkaProducer[String, String](properties)
 

@@ -4,7 +4,7 @@ import org.apache.kafka.clients.consumer.KafkaConsumer
 
 object Consumer extends App {
 
-  val topic = "boar bear beer"
+  val topic = "BoarBearBeer"
 
   val properties = new Properties()
   properties.put("bootstrap.servers", "localhost:9092")
