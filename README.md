@@ -9,7 +9,7 @@ brew install kafka
 
 ### Run zookeeper / kafka
 ```.bash
-# To have launchd start zookeeper / kafka now and restart at login:
+# To have launched start zookeeper / kafka now and restart at login:
 $ brew services start zookeeper
 $ brew services start kafka
 
@@ -34,7 +34,7 @@ $ which kafka-console-consumer
 
 ### Run producer on the Terminal
 ```.bash
-$ kafka-console-producer.sh --broker-list localhost:9092 --topic BoarBearBeer
+$ kafka-console-producer --broker-list localhost:9092 --topic BoarBearBeer
 ```
 
 ### Run consumer on a new Terminal

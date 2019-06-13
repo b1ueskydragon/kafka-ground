@@ -25,4 +25,6 @@ object Consumer extends App {
     }
   }
 
+  consumer.close()
+
 }
