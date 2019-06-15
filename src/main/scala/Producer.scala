@@ -1,26 +1,29 @@
-import java.util.{Date, Properties}
+import java.util.{Properties, Scanner}
 
 import org.apache.kafka.clients.producer.{KafkaProducer, ProducerRecord}
 
 object Producer extends App {
+
+  val topic = "BoarBearBeer"
 
   val properties = new Properties()
   properties.put("bootstrap.servers", "localhost:9092")
   properties.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer")
   properties.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer")
 
-  val topic = "BoarBearBeer"
-
   val producer = new KafkaProducer[String, String](properties)
 
-  (1 to 50).foreach { i =>
-    val record = new ProducerRecord(topic, "key", s"producer record; $i")
-    producer.send(record)
+  producer.send(new ProducerRecord(topic, "key", "producer start"))
+
+  lazy val sc = new Scanner(System.in)
+
+  try {
+    while (sc.hasNext) {
+      producer.send(new ProducerRecord(topic, "key", sc.nextLine))
+    }
+  } finally {
+    sc.close()
+    producer.close()
   }
-
-  val record = new ProducerRecord(topic, "key", s"final; ${new Date}")
-  producer.send(record)
-
-  producer.close()
 
 }

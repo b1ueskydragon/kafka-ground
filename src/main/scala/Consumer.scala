@@ -16,15 +16,14 @@ object Consumer extends App {
 
   consumer.subscribe(Collections.singletonList(topic))
 
-  (1 to 10).foreach { i =>
-    val records = consumer.poll(3000)
-    println(s"print counts; $i")
-
-    records.forEach { j =>
-      println(s"print records; $j")
+  try {
+    while (true) {
+      val records = consumer.poll(3000)
+      records.forEach(record => println(s"${record.value} (offset: ${record.offset})"))
+      consumer.commitSync()
     }
+  } finally {
+    consumer.close()
   }
-
-  consumer.close()
 
 }
