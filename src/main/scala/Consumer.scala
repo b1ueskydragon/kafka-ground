@@ -1,19 +1,10 @@
-import java.util.{Collections, Properties}
+import java.util.Collections
 
-import com.typesafe.config.ConfigFactory.load
 import org.apache.kafka.clients.consumer.KafkaConsumer
 
-object Consumer extends App {
+object Consumer extends App with ConsumerConfigs {
 
-  val topic = load.getString("topic")
-
-  val properties = new Properties()
-  properties.put("bootstrap.servers", "localhost:9092")
-  properties.put("key.deserializer", "org.apache.kafka.common.serialization.StringDeserializer")
-  properties.put("value.deserializer", "org.apache.kafka.common.serialization.StringDeserializer")
-  properties.put("group.id", "groupA")
-
-  val consumer = new KafkaConsumer[String, String](properties)
+  lazy val consumer = new KafkaConsumer[String, String](properties)
 
   consumer.subscribe(Collections.singletonList(topic))
 
