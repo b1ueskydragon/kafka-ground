@@ -1,10 +1,11 @@
 import java.util.{Properties, Scanner}
 
+import com.typesafe.config.ConfigFactory.load
 import org.apache.kafka.clients.producer.{KafkaProducer, ProducerRecord}
 
 object Producer extends App {
 
-  val topic = "BoarBearBeer"
+  val topic = load.getString("topic")
 
   val properties = new Properties()
   properties.put("bootstrap.servers", "localhost:9092")
