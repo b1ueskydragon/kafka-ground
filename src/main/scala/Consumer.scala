@@ -1,6 +1,6 @@
 import java.util.Collections
 
-import Funcs.retry
+import Funcs._
 import org.apache.kafka.clients.consumer.KafkaConsumer
 
 object Consumer extends App with ConsumerConfigs {
@@ -9,12 +9,12 @@ object Consumer extends App with ConsumerConfigs {
 
   consumer.subscribe(Collections.singletonList(topic))
 
-  retry() {
-    val records = consumer.poll(3000)
-    records.forEach(record => println(s"${record.value} (offset: ${record.offset})"))
-    consumer.commitSync()
+  using(consumer) { _ =>
+    retry() {
+      val records = consumer.poll(3000)
+      records.forEach(record => println(s"${record.value} (offset: ${record.offset})"))
+      consumer.commitSync()
+    }
   }
-
-  consumer.close()
 
 }
