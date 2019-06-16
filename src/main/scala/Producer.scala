@@ -1,5 +1,6 @@
 import java.util.Scanner
 
+import Funcs.retry
 import org.apache.kafka.clients.producer.{KafkaProducer, ProducerRecord}
 
 object Producer extends App with ProducerConfigs {
@@ -10,13 +11,11 @@ object Producer extends App with ProducerConfigs {
 
   lazy val sc = new Scanner(System.in)
 
-  try {
-    while (sc.hasNext) {
-      producer.send(new ProducerRecord(topic, "key", sc.nextLine))
-    }
-  } finally {
-    sc.close()
-    producer.close()
+  retry() {
+    producer.send(new ProducerRecord(topic, "key", sc.nextLine))
   }
+
+  sc.close()
+  producer.close()
 
 }
