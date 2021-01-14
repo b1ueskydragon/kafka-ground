@@ -61,4 +61,13 @@ $ kafka-console-consumer --topic BoarBearBeer --from-beginning --bootstrap-serve
 ```
 
 ## Notes
-- kafka supports port number `9092`
+- kafka supports a port number `9092` and zookeeper supports `2181` as a default.
+
+- How to delete logs (logs := written data in the topic)
+```
+# set a very short purging cycle and wait to refresh
+$ kafka-topics --zookeeper {HOST_NAME}:2181 --alter --topic {TOPIC_NAME}  --config retention.ms=100
+
+# revert to the default (168 hours)
+$ kafka-topics --zookeeper {HOST_NAME}:2181 --alter --topic {TOPIC_NAME}  --config retention.ms=604800000
+```
